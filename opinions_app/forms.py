@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, URLField
 from wtforms.validators import DataRequired, Length, Optional, URL
 
+
 class OpinionForm(FlaskForm):
     title = StringField(
         'Введите название фильма',
@@ -9,7 +10,7 @@ class OpinionForm(FlaskForm):
                     Length(1, 128)]
     )
     text = TextAreaField(
-        'Напишите мнение', 
+        'Напишите мнение',
         validators=[DataRequired(message='Обязательное поле')]
     )
     source = URLField(

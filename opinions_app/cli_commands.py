@@ -1,11 +1,10 @@
-# what_to_watch/opinions_app/cli_commands.py
-
 import csv
 
 import click
 
 from . import app, db
 from .models import Opinion
+
 
 @app.cli.command('load_opinions')
 def load_opinions_command():
