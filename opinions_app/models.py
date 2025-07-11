@@ -22,3 +22,12 @@ class Opinion(db.Model):
             timestamp=self.timestamp,
             added_by=self.added_by
         )
+
+    def from_dict(self, data):
+        # Для каждого поля модели, которое можно заполнить...
+        for field in ['title', 'text', 'source', 'added_by']:
+            # ...выполнить проверку — есть ли ключ с таким же именем в словаре.
+            if field in data:
+                # Если есть, добавить значение из словаря
+                # в соответствующее поле объекта модели.
+                setattr(self, field, data[field])
