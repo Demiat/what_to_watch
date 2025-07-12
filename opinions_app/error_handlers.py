@@ -14,13 +14,13 @@ class InvalidAPIUsage(Exception):
         if status_code is not None:
             self.status_code = status_code
 
-    def to_dict(self):
+    def mess_to_dict(self):
         return dict(message=self.message)
 
 
 @app.errorhandler(InvalidAPIUsage)
 def handle_invalid_usage(error):
-    return jsonify(error.to_dict()), error.status_code
+    return jsonify(error.mess_to_dict()), error.status_code
 
 
 @app.errorhandler(404)
