@@ -12,6 +12,7 @@ class Opinion(db.Model):
         db.DateTime, index=True, default=datetime.now(timezone.utc)
     )
     added_by = db.Column(db.String(64))
+    images = db.Column(db.JSON)
 
     def to_dict(self):
         return dict(

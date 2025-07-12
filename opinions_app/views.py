@@ -5,6 +5,7 @@ from flask import abort, flash, redirect, render_template, url_for
 from . import app, db
 from .forms import OpinionForm
 from .models import Opinion
+from .dropbox import upload_files_to_dropbox
 
 
 def get_random_opinion():
@@ -31,7 +32,8 @@ def add_opinion_view():
         opinion = Opinion(
             title=form.title.data,
             text=text,
-            source=form.source.data
+            source=form.source.data,
+            images=upload_files_to_dropbox(form.images.data)
         )
         db.session.add(opinion)
         db.session.commit()
