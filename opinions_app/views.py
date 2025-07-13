@@ -5,7 +5,7 @@ from flask import abort, flash, redirect, render_template, url_for
 from . import app, db
 from .forms import OpinionForm
 from .models import Opinion
-from .dropbox import upload_files_to_dropbox
+from .dropbox import async_upload_files_to_dropbox
 
 
 def get_random_opinion():
@@ -22,7 +22,7 @@ def index_view():
 
 
 @app.route('/add', methods=['GET', 'POST'])
-def add_opinion_view():
+async def add_opinion_view():
     form = OpinionForm()
     if form.validate_on_submit():
         text = form.text.data
@@ -33,7 +33,7 @@ def add_opinion_view():
             title=form.title.data,
             text=text,
             source=form.source.data,
-            images=upload_files_to_dropbox(form.images.data)
+            images=await async_upload_files_to_dropbox(form.images.data)
         )
         db.session.add(opinion)
         db.session.commit()
