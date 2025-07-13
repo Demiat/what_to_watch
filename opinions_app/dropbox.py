@@ -44,8 +44,8 @@ async def upload_file_and_get_url(session, image):
         'autorename': True,
         'mode': 'add',
         'path': f'/{image.filename}',
-    })   
-    # Асинхронная загрузка в aiohttp выполняется 
+    })
+    # Асинхронная загрузка в aiohttp выполняется
     # с помощью асинхронного контекстного менеджера.
     async with session.post(
         UPLOAD_LINK,
@@ -56,7 +56,7 @@ async def upload_file_and_get_url(session, image):
         },
         data=image.read()
     ) as response:
-        # Асинхронное получение ответа должно сопровождаться 
+        # Асинхронное получение ответа должно сопровождаться
         # ключевым словом await.
         data = await response.json()
         path = data['path_lower']
@@ -74,7 +74,6 @@ async def upload_file_and_get_url(session, image):
         url = data['url']
         url = url.replace('&dl=0', '&raw=1')
     return url
-
 
 
 # Синхронная функция

@@ -23,6 +23,8 @@ def index_view():
 
 @app.route('/add', methods=['GET', 'POST'])
 async def add_opinion_view():
+    import time
+    start = time.time()
     form = OpinionForm()
     if form.validate_on_submit():
         text = form.text.data
@@ -37,6 +39,7 @@ async def add_opinion_view():
         )
         db.session.add(opinion)
         db.session.commit()
+        print('end: ', time.time() - start)
         return redirect(url_for('opinion_view', id=opinion.id))
     return render_template('add_opinion.html', form=form)
 
